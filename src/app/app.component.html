@@ -1,20 +1,93 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div>
+  <table style="width: 100%;text-align: center" border="bordered"  >
+    <thead>
+    <tr>
+        <th *ngFor="let h of tableHeadings">{{h}}</th>
+    </tr>
+    </thead>
+    <tbody >
+    <ng-template ngFor let-item [ngForOf]="projectDetails" let-i="index">
+      <tr style="border: solid black 1px">
+        <td class="design" (click)="toggleStory(i)">
+          <i class="fa fa-caret-right" *ngIf="!isstoryopen[i]"></i>
+          <i class="fa fa-caret-down" *ngIf="isstoryopen[i]"></i>
+          {{item.proj_name}}
+        </td>
+        <td>{{item.proj_id}}</td>
+        <td>{{item.automatable_tc}}</td>
+        <td>{{item.automated_tc}}</td>
+        <td>{{item.goal_automation}}</td>
+        <td>{{item.goldmine_monitor_flag}}</td>
+        <td>{{item.item_status}}</td>
+        <td>{{item.item_type}}</td>
+        <td>{{item.percent_automation}}</td>
+        <!-- //<td>{{item.stories}}</td>-->
+        <td>{{item.product_name}}</td>
+        <td>{{item.product_release}}</td>
+        <td>{{item.testlink}}</td>
+        <td>{{item.total_tc}}</td>
+        <!--//<td>{{item.warios_repo_list}}</td>-->
+      </tr>
+      <ng-template ngFor let-story [ngForOf]="storyValues[i]" let-y="index">
+        <tr *ngIf="isstoryopen[i]">
 
+          <td (click)="toggleCategory(i,y)">
+            <i class="fa fa-caret-right" *ngIf="!iscategoryopen[y]"></i>
+            <i class="fa fa-caret-down" *ngIf="iscategoryopen[y]"></i>{{storyKeys[i][y]}}</td>
+          <td>{{story.proj_id}}</td>
+          <td>{{story.automatable_tc}}</td>
+          <td>{{story.automated_tc}}</td>
+          <td>{{story.goal_automation}}</td>
+          <td>{{story.goldmine_monitor_flag}}</td>
+          <td>{{story.item_status}}</td>
+          <td>{{story.item_type}}</td>
+          <td>{{story.percent_automation}}</td>
+          <!-- //<td>{{item.stories}}</td>-->
+          <td>{{story.product_name}}</td>
+          <td>{{story.product_release}}</td>
+          <td>{{story.testlink}}</td>
+          <td>{{story.total_tc}}</td>
+        </tr>
+        <ng-template ngFor let-categorys [ngForOf]="category[y]" let-j="index">
+          <tr *ngIf="iscategoryopen[y]">
+          <td (click)="toggleTestPlan(y,j)">
+            <i class="fa fa-caret-right" *ngIf="!istestplanopen[j]"></i>
+            <i class="fa fa-caret-down" *ngIf="istestplanopen[j]"></i>{{categoryKeys[y][j]}}</td>
+          <td>{{categorys.proj_id}}</td>
+          <td>{{categorys.automatable_tc}}</td>
+          <td>{{categorys.automated_tc}}</td>
+          <td>{{categorys.goal_automation}}</td>
+          <td>{{categorys.goldmine_monitor_flag}}</td>
+          <td>{{categorys.item_status}}</td>
+          <td>{{categorys.item_type}}</td>
+          <td>{{categorys.percent_automation}}</td>
+          <!-- //<td>{{item.stories}}</td>-->
+          <td>{{categorys.product_name}}</td>
+          <td>{{categorys.product_release}}</td>
+          <td>{{categorys.testlink}}</td>
+          <td>{{categorys.total_tc}}</td>
+          </tr>
+          <ng-template ngFor let-testplans [ngForOf]="testplan[j]" let-k="index">
+            <tr *ngIf="istestplanopen[y][j] && isstoryopen[i]">
+              <td>{{testplanKeys[j][k]}}</td><td>{{testplans.proj_id}}</td>
+              <td>{{testplans.automatable_tc}}</td>
+              <td>{{testplans.automated_tc}}</td>
+              <td>{{testplans.goal_automation}}</td>
+              <td>{{testplans.goldmine_monitor_flag}}</td>
+              <td>{{testplans.item_status}}</td>
+              <td>{{testplans.item_type}}</td>
+              <td>{{testplans.percent_automation}}</td>
+              <!-- //<td>{{item.stories}}</td>-->
+              <td>{{testplans.product_name}}</td>
+              <td>{{testplans.product_release}}</td>
+              <td>{{testplans.testlink}}</td>
+              <td>{{testplans.total_tc}}</td>
+
+            </tr>
+          </ng-template>
+        </ng-template>
+      </ng-template>
+    </ng-template>
+    </tbody>
+  </table>
+</div>
