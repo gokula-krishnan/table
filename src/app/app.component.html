@@ -1,14 +1,14 @@
 <div>
-  <table style="width: 100%;text-align: center" border="bordered"  >
+  <table style="width: 100%;text-align: center" border="bordered">
     <thead>
     <tr>
-        <th *ngFor="let h of tableHeadings">{{h}}</th>
+      <th *ngFor="let h of tableHeadings">{{h}}</th>
     </tr>
     </thead>
     <tbody >
     <ng-template ngFor let-item [ngForOf]="projectDetails" let-i="index">
       <tr style="border: solid black 1px">
-        <td class="design" (click)="toggleStory(i)">
+        <td class="design" (click)="toggleStory(i)" style="text-align: left">
           <i class="fa fa-caret-right" *ngIf="!isstoryopen[i]"></i>
           <i class="fa fa-caret-down" *ngIf="isstoryopen[i]"></i>
           {{item.proj_name}}
@@ -28,10 +28,10 @@
         <td>{{item.total_tc}}</td>
         <!--//<td>{{item.warios_repo_list}}</td>-->
       </tr>
-      <ng-template ngFor let-story [ngForOf]="storyValues[i]" let-y="index">
-        <tr *ngIf="isstoryopen[i]">
+      <ng-template ngFor let-story [ngForOf]="storyValues[i]" let-y="index" >
+        <tr *ngIf="isstoryopen[i]" >
 
-          <td (click)="toggleCategory(i,y)">
+          <td (click)="toggleCategory(i,y)" style="padding-left: 30px;text-align: left;width:10%;color: darkred">
             <i class="fa fa-caret-right" *ngIf="!iscategoryopen[y]"></i>
             <i class="fa fa-caret-down" *ngIf="iscategoryopen[y]"></i>{{storyKeys[i][y]}}</td>
           <td>{{story.proj_id}}</td>
@@ -49,27 +49,27 @@
           <td>{{story.total_tc}}</td>
         </tr>
         <ng-template ngFor let-categorys [ngForOf]="category[y]" let-j="index">
-          <tr *ngIf="iscategoryopen[y]">
-          <td (click)="toggleTestPlan(y,j)">
-            <i class="fa fa-caret-right" *ngIf="!istestplanopen[j]"></i>
-            <i class="fa fa-caret-down" *ngIf="istestplanopen[j]"></i>{{categoryKeys[y][j]}}</td>
-          <td>{{categorys.proj_id}}</td>
-          <td>{{categorys.automatable_tc}}</td>
-          <td>{{categorys.automated_tc}}</td>
-          <td>{{categorys.goal_automation}}</td>
-          <td>{{categorys.goldmine_monitor_flag}}</td>
-          <td>{{categorys.item_status}}</td>
-          <td>{{categorys.item_type}}</td>
-          <td>{{categorys.percent_automation}}</td>
-          <!-- //<td>{{item.stories}}</td>-->
-          <td>{{categorys.product_name}}</td>
-          <td>{{categorys.product_release}}</td>
-          <td>{{categorys.testlink}}</td>
-          <td>{{categorys.total_tc}}</td>
+          <tr *ngIf="isstoryopen[i] && iscategoryopen[i][y]" >
+            <td (click)="toggleTestPlan(y,j)" style="width:15%;padding-left: 60px;text-align: left;color: green">
+              <i class="fa fa-caret-right" *ngIf="!istestplanopen[j]"></i>
+              <i class="fa fa-caret-down" *ngIf="istestplanopen[j]"></i>{{categoryKeys[y][j]}}</td>
+            <td>{{categorys.proj_id}}</td>
+            <td>{{categorys.automatable_tc}}</td>
+            <td>{{categorys.automated_tc}}</td>
+            <td>{{categorys.goal_automation}}</td>
+            <td>{{categorys.goldmine_monitor_flag}}</td>
+            <td>{{categorys.item_status}}</td>
+            <td>{{categorys.item_type}}</td>
+            <td>{{categorys.percent_automation}}</td>
+            <!-- //<td>{{item.stories}}</td>-->
+            <td>{{categorys.product_name}}</td>
+            <td>{{categorys.product_release}}</td>
+            <td>{{categorys.testlink}}</td>
+            <td>{{categorys.total_tc}}</td>
           </tr>
           <ng-template ngFor let-testplans [ngForOf]="testplan[j]" let-k="index">
-            <tr *ngIf="istestplanopen[y][j] && isstoryopen[i]">
-              <td>{{testplanKeys[j][k]}}</td><td>{{testplans.proj_id}}</td>
+            <tr *ngIf="istestplanopen[y][j] && isstoryopen[i]" >
+              <td style="width: 25%;padding-left: 80px;text-align: left;color: crimson">{{testplanKeys[j][k]}}</td><td>{{testplans.proj_id}}</td>
               <td>{{testplans.automatable_tc}}</td>
               <td>{{testplans.automated_tc}}</td>
               <td>{{testplans.goal_automation}}</td>

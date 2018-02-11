@@ -64,11 +64,15 @@ export class AppComponent {
     this.storyValues[index] = dummy;
   }
 
-  iscategoryopen: boolean[] = new Array(this.storyKeys.length);
+  iscategoryopen: boolean[][] = new Array(this.storyKeys.length);
   categoryKeys: any[] = new Array(this.storyKeys.length);
 
   toggleCategory(prindex, stindex) {
-    this.iscategoryopen[stindex] = !this.iscategoryopen[stindex];
+    //console.log(prindex, stindex);
+    if(!this.iscategoryopen[prindex]){
+      this.iscategoryopen[prindex] = new Array(this.storyKeys.length);
+    }
+    this.iscategoryopen[prindex][stindex] = !this.iscategoryopen[prindex][stindex];
     //console.log(this.iscategoryopen[stindex]);
     this.categoryKeys[stindex] = Object.keys(this.storyValues[prindex][stindex].categories);
     let dummy1 = [];
